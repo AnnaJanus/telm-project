@@ -1,4 +1,4 @@
-{% load static %}
+{% load staticfiles %}
 <html>
     <head>
         <title>Django Girls blog</title>
@@ -8,22 +8,36 @@
         <link rel="stylesheet" href="{% static 'css/ecgsite.css' %}">
     </head>
     <body>
-    <div class="page-header">
-        <h1><a href="/">Django Girls Blog</a></h1>
-    </div>
-    <div class="content container">
-        <div class="row">
-            <div class="col-md-8">
 
-              <div class="vertical-menu">
-              <a href="#" class="active">Files:</a>
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
-              <a href="#">Link 4</a>
+      <div class="page-header">
+          <h1><a href="/">Django Girls Blog</a></h1>
+      </div>
+      <div class="content container">
+          <div class="row">
+              <div class="col-md-8">
+
+                <div class="vertical-menu">
+                <a href="#" class="active">Files:</a>
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+                <a href="#">Link 4</a>
+                </div>
               </div>
-            </div>
-        </div>
-    </div>
-</body>
+          </div>
+      </div>
+
+        <h1>Some Line Charts loaded in Ajax!</h1>
+
+          <canvas id="myChart" width="500" height="400"></canvas>
+
+          <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+          <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+          <script type="text/javascript">
+              $.get('{% url "line_chart_json" %}', function(data) {
+                  var ctx = $("#myChart").get(0).getContext("2d");
+                  new Chart(ctx).Line(data);
+              });
+          </script>
+      </body>
 </html>
