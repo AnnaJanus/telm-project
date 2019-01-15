@@ -18,10 +18,9 @@
 
                 <div class="vertical-menu">
                 <a href="#" class="active">Files:</a>
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-                <a href="#">Link 4</a>
+                {% for file in files %}
+                   <p> nazwa {{ file.name }} </p>
+                {% endfor %}
                 </div>
               </div>
           </div>
@@ -36,7 +35,9 @@
           <script type="text/javascript">
               $.get('{% url "line_chart_json" %}', function(data) {
                   var ctx = $("#myChart").get(0).getContext("2d");
-                  new Chart(ctx).Line(data);
+                  new Chart(ctx, {
+                      type: 'line', data: data
+                  });
               });
           </script>
       </body>
